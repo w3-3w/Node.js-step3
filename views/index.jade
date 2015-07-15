@@ -20,16 +20,30 @@ html
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
             li.active
-              a(href='#') Home
-    .container
-      
+              a#room-display(href='#') ルーム：
+    .container#chat-items
     footer.footer
       .container
         form#chat-form
           label.sr-only(for='chat-input') チャット
           input#chat-input.form-control.input-lg(type='text', placeholder='ここでチャットを入力する')
           button.sr-only(type='submit') 送信
-      
+    .modal.fade#prompt-out
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h4.modal-title 始まる前に
+          .modal-body
+            form#prompt-form
+              .form-group
+                label(for='nickname') ニックネームを教えてください
+                input.form-control#nickname(type='text', placeholder='ニックネーム', maxlength='12')
+              .form-group
+                label(for='chat-room') ルームコードを入力してください
+                input.form-control#chat-room(type='text', placeholder='ルームコード', maxlength='6')
+              button.sr-only(type='submit') ログイン
+          .modal-footer
+            button.btn.btn-primary#prompt-confirm(type='button') 開始
       
     script(src='http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js')
     script(src='http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js')

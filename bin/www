@@ -92,18 +92,51 @@ function onListening() {
 //io
 var io = require('socket.io').listen(server);
 
-io.sockets.on('connection', function(socket) {
-  //接続のidを確認
-  console.log('connected', socket.id);
+var roomCount = {};
 
-  // chatというイベントを受信したとき、送られた内容をすべてのクライアントに送信する
+io.sockets.on('connection', function(socket) {
+
+  var thisName = null;
+  var thisRoom = null;
+
   socket.on('chat', function(chat) {
-    console.log('message : ' + chat.message);
-    io.emit('chat', chat);
+    socket.to(thisRoom).emit('chat', {
+      name: thisName,
+      message: chat.message
+    });
+    socket.emit('chat', {
+      name: thisName,
+      message: chat.message
+    });
   });
 
-  // 接続が切断したとき
+  socket.on('join', function(data) {
+    thisName = data.name;
+    thisRoom = data.room;
+    socket.join(thisRoom);
+    if (typeof roomCount[thisRoom] === 'undefined') {
+      roomCount[thisRoom] = 1;
+    }
+    else {
+      roomCount[thisRoom] ++;
+    }
+    console.log(socket.id + ' joined room ' + thisRoom + ' , now ' + roomCount[thisRoom] + ' people');
+    socket.to(thisRoom).emit('join', {
+      name: thisName,
+      join: true
+    });
+    socket.emit('join', {
+      self: true,
+      count: roomCount[thisRoom] - 1
+    });
+  });
+
   socket.on('disconnect', function() {
-    console.log('disconnect');
+    console.log(socket.id + ' disconnect');
+    roomCount[thisRoom] --;
+    socket.to(thisRoom).emit('join', {
+      name: thisName,
+      join: false
+    });
   });
 });
