@@ -82,7 +82,7 @@ function init() {
     else {
       $roomCode.parent().removeClass('has-error');
       $('#prompt-out').modal('hide');
-      $('#room-display').text('ルーム：' + roomCode);
+      $('#room-display').text('房间：' + roomCode);
       $('#prompt-out').on('hidden.bs.modal', function() {
         $nickname.val('');
         $roomCode.val('');
