@@ -25,9 +25,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/', routes);
 //app.use('/users', users);
 
-//returns index page
+// returns index page
+// language JP
 app.get('/', function(req, res) {
   res.render('index');
+});
+// language CN
+app.get('/cn', function(req, res) {
+  res.render('indexCN');
 });
 
 // catch 404 and forward to error handler

@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='w3聊天室')
+    meta(name='author', content='w3_3w')
+    title w3聊天室
+    link(rel='stylesheet', href='http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+            span.sr-only 导航
+            span.icon-bar
+          a.navbar-brand(href='#') w3聊天室
+        #navbar.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li.active
+              a#room-display(href='#') 房间：
+    .container#chat-items
+    footer.footer
+      .container
+        form#chat-form
+          label.sr-only(for='chat-input') 聊天
+          input#chat-input.form-control.input-lg(type='text', placeholder='在这里输入聊天内容')
+          button.sr-only(type='submit') 发送
+    .modal.fade#prompt-out
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h4.modal-title 在开始之前……
+          .modal-body
+            form#prompt-form
+              .form-group
+                label(for='nickname') 请输入你的昵称
+                input.form-control#nickname(type='text', placeholder='昵称', maxlength='12')
+              .form-group
+                label(for='chat-room') 请输入房间号码
+                input.form-control#chat-room(type='text', placeholder='房间号码', maxlength='6')
+              button.sr-only(type='submit') 登录
+          .modal-footer
+            button.btn.btn-primary#prompt-confirm(type='button') 开始
+      
+    script(src='http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js')
+    script(src='http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/chat.cn.js')
